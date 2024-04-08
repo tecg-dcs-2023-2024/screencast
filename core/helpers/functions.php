@@ -34,7 +34,7 @@ function base_path(string $path = ''): string
 
 function public_path(string $path = ''): string
 {
-    $server = 'Http'.($_SERVER['HTTPS'] === 'on' ? 's' : '').'://'.$_SERVER['SERVER_NAME'];
+    $server = 'Http'.(isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] === 'on') ? 's' : '').'://'.$_SERVER['SERVER_NAME'];
 
     return "{$server}/$path";
 }
