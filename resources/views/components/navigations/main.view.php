@@ -7,5 +7,7 @@
                href="/contacts">Contacts</a></li>
         <li><a class="underline text-blue-500"
                href="/projects">Projets</a></li>
+        <li><a class="underline text-blue-500"
+               href="/register">S’enregister</a></li>
     </ul>
 </nav>
