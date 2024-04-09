@@ -7,7 +7,11 @@
                href="/contacts">Contacts</a></li>
         <li><a class="underline text-blue-500"
                href="/projects">Projets</a></li>
+        <?php if(!isset($_SESSION['user']) || !$_SESSION['user']): ?>
         <li><a class="underline text-blue-500"
                href="/register">S’enregister</a></li>
+        <li><a class="underline text-blue-500"
+               href="/login">S’identifier</a></li>
+        <?php endif ?>
     </ul>
 </nav>
