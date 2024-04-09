@@ -19,7 +19,7 @@
         <?php
         component('forms.controls.label-and-input', [
             'name' => 'password',
-            'label' => "Mot de passe <small>au moins 8 caractères, des lettres, des chiffres et des caractères spéciaux (+-*/%!_)</small>",
+            'label' => "Mot de passe <small>au moins 8 caractères, des lettres, des chiffres et des caractères spéciaux (+-*/%!?_)</small>",
             'type' => 'text',
             'value' => '',
             'placeholder' => 'ch4nge_th1s'

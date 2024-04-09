@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Jiri;
 use App\Models\User;
 use Core\Exceptions\FileNotFoundException;
 use Core\Response;
@@ -21,6 +20,7 @@ class RegisteredUserController
             die($exception->getMessage());
         }
     }
+
     public function create(): void
     {
         view('auth.register.create');
@@ -28,14 +28,15 @@ class RegisteredUserController
 
     #[NoReturn] public function store(): void
     {
-
         $data = Validator::check([
-            'email' => 'required',
-            'password' => 'required|min:8',
+            'email' => 'required|email|doesntexists:user,email',
+            'password' => 'required|password',
         ]);
 
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
         if ($this->user->create($data)) {
-            Response::redirect('/jiris');
+            Response::redirect('/login');
         } else {
             Response::abort(Response::SERVER_ERROR);
         }

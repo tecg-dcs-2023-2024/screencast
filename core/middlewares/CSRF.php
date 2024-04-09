@@ -4,7 +4,7 @@ namespace Core\Middlewares;
 
 use Core\Response;
 
-class CSRF
+class CSRF implements \Core\Contracts\Middleware
 {
     public function handle(): void
     {

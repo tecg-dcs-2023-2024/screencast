@@ -42,6 +42,7 @@ class Router
 
     public function only(string $who): Router
     {
+        $this->routes[array_key_last($this->routes)]['middlewares'][] = $who;
         return $this;
     }
 

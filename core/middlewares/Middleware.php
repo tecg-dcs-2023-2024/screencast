@@ -8,6 +8,8 @@ class Middleware
 {
     private const MAP = [
         'csrf' => CSRF::class,
+        'guest' => Guest::class,
+        'auth' => Auth::class,
     ];
 
     public static function resolve(string $name): void

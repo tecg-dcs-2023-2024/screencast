@@ -20,6 +20,7 @@ class AuthenticatedSessionController
             die($exception->getMessage());
         }
     }
+
     public function create(): void
     {
         view('auth.login.create');
@@ -27,27 +28,37 @@ class AuthenticatedSessionController
 
     #[NoReturn] public function store(): void
     {
-
         $data = Validator::check([
-            'email' => 'required',
-            'password' => 'required|min:8',
+            'email' => 'required|email|exists:user,email',
+            'password' => 'required|password',
         ]);
 
-        $user = $this->user->findByEmail($data['email']);
-
-        if($user){
-            if(password_verify($data['password'], $user->password)){
-                $_SESSION['user'] = $user;
-                Response::redirect('/');
-            }else{
-                $_SESSION['errors']['password'] = 'Wrong password';
-                $_SESSION['old'] = $data;
-                Response::redirect($_SERVER['HTTP_REFERER']);
-            }
-        }else{
-            $_SESSION['errors']['email'] = 'Email does not exist in our database';
+        if (password_verify($data['password'], $_SESSION['user']->password)) {
+            Response::redirect('/');
+        } else {
+            $_SESSION['errors']['password'] = 'Le mot de passe ne correspond pas à l’email fourni';
             $_SESSION['old'] = $data;
+            unset($_SESSION['user']);
             Response::redirect($_SERVER['HTTP_REFERER']);
         }
+    }
+
+    public function destroy(): void
+    {
+        $_SESSION = [];
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
+        session_destroy();
+        Response::redirect('/login');
     }
 }
