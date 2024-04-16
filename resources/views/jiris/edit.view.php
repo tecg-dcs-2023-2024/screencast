@@ -1,6 +1,5 @@
 <?php
 /** @var stdClass $jiri */
-
 ?>
 <!doctype html>
 <html lang="fr">
@@ -39,25 +38,25 @@
                             'value' => $jiri->name,
                             'placeholder' => 'Mon examen de première session',
                         ]);
-                        ?>
+?>
                     </div>
                     <div class="flex flex-col gap-2">
                         <?php
-                        $date = \Carbon\Carbon::now()->format('Y-m-d H:i');
-                        component('forms.controls.label-and-input', [
-                            'name' => 'starting_at',
-                            'label' => "Date et heure de début <small>au format {$date}</small>",
-                            'type' => 'text',
-                            'value' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $jiri->starting_at)
-                                ->format('Y-m-d H:i'),
-                            'placeholder' => $date,
-                        ]);
-                        ?>
+$date = \Carbon\Carbon::now()->format('Y-m-d H:i');
+component('forms.controls.label-and-input', [
+    'name' => 'starting_at',
+    'label' => "Date et heure de début <small>au format {$date}</small>",
+    'type' => 'text',
+    'value' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $jiri->starting_at)
+        ->format('Y-m-d H:i'),
+    'placeholder' => $date,
+]);
+?>
                     </div>
                     <div>
                         <?php
-                        component('forms.controls.button', ['text' => 'Modifier ce jiri']);
-                        ?>
+component('forms.controls.button', ['text' => 'Modifier ce jiri']);
+?>
                     </div>
                 </form>
                 <?php

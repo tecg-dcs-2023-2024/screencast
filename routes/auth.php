@@ -1,4 +1,5 @@
 <?php
+
 /** @var Core\Router $router */
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;

@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\NoReturn;
         var_dump($var);
         echo '<hr>';
     }
-    die();
+    exit();
 }
 
 function view(string $path, array $data = []): void

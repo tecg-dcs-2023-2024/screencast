@@ -1,4 +1,3 @@
-
 <form action="/logout"
       method="post">
     <?php

@@ -14,6 +14,13 @@ class Router
         return $this->add($path, $action, 'GET');
     }
 
+    private function add(string $path, array $action, string $request_method): Router
+    {
+        $this->routes[] = compact('path', 'action', 'request_method');
+
+        return $this;
+    }
+
     public function post(string $path, array $action): Router
     {
         return $this->add($path, $action, 'POST');
@@ -37,18 +44,14 @@ class Router
     public function csrf(): Router
     {
         $this->routes[array_key_last($this->routes)]['middlewares'][] = 'csrf';
+
         return $this;
     }
 
     public function only(string $who): Router
     {
         $this->routes[array_key_last($this->routes)]['middlewares'][] = $who;
-        return $this;
-    }
 
-    private function add(string $path, array $action, string $request_method): Router
-    {
-        $this->routes[] = compact('path', 'action', 'request_method');
         return $this;
     }
 
@@ -58,7 +61,7 @@ class Router
             array_values(
                 array_filter(
                     $this->routes,
-                    fn($v, $k) => $v['path'] === $request_uri
+                    fn ($v, $k) => $v['path'] === $request_uri
                         && strtoupper($v['request_method']) === strtoupper($request_method),
                     ARRAY_FILTER_USE_BOTH
                 )
@@ -84,6 +87,4 @@ class Router
         $controller = new $controller_name();
         $controller->{$method_name}();
     }
-
-
 }

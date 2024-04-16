@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\JiriController;
+use App\Http\Controllers\PagesController;
 
 /** @var Core\Router $router */
-$router->get('/', [JiriController::class, 'index'])->only('guest');
+$router->get('/', [PagesController::class, 'home'])->only('guest');
 
 $router->get('/jiris', [JiriController::class, 'index'])->only('auth');
 
@@ -15,9 +16,6 @@ $router->post('/jiri', [JiriController::class, 'store'])->only('auth')->csrf();
 $router->get('/jiri/edit', [JiriController::class, 'edit'])->only('auth');
 $router->patch('/jiri', [JiriController::class, 'update'])->only('auth')->csrf();
 
-
 $router->delete('/jiri', [JiriController::class, 'destroy'])->only('auth')->csrf();
 
-require __DIR__ . '/auth.php';
-
-
+require __DIR__.'/auth.php';

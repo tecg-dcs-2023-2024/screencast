@@ -1,13 +1,12 @@
 <?php
 
-
 // Get a connection to Db
 use Core\Exceptions\FileNotFoundException;
 
 try {
     $db = new Core\Database(BASE_PATH.'/.env.local.ini');
 } catch (FileNotFoundException $exception) {
-    die($exception->getMessage());
+    exit($exception->getMessage());
 }
 
 // Drop tables
@@ -18,7 +17,7 @@ echo 'All tables have been dropped'.PHP_EOL;
 // Create tables
 
 echo 'Creating Jiri table'.PHP_EOL;
-$create_user_table_sql = <<<SQL
+$create_user_table_sql = <<<'SQL'
     create table jiris
     (
         id          int auto_increment
@@ -34,7 +33,7 @@ $db->exec($create_user_table_sql);
 echo 'Jiri table created'.PHP_EOL;
 
 echo 'Creating User table'.PHP_EOL;
-$create_user_table_sql = <<<SQL
+$create_user_table_sql = <<<'SQL'
     create table users
     (
         id int auto_increment primary key,

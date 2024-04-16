@@ -8,9 +8,11 @@ use PDOException;
 
 class Database extends PDO
 {
-    private array $tables;
-    private string $database_name;
     protected string $table;
+
+    private array $tables;
+
+    private string $database_name;
 
     public function __construct(string $ini_path)
     {
@@ -45,7 +47,7 @@ class Database extends PDO
             parent::__construct($dsn, $username, $password, $options);
         } catch (PDOException $exception) {
             // TODO Rediriger vers une page d'erreur générique qui invite à contacter l'admin
-            die('Un problème de connection avec la base de données est apparu, contactez l’administrateur');
+            exit('Un problème de connection avec la base de données est apparu, contactez l’administrateur');
         }
 
         $this->tables = $this->query('SHOW TABLES')->fetchAll();
@@ -59,6 +61,17 @@ class Database extends PDO
         }
     }
 
+    public function findOrFail(string $id): ?\stdClass
+    {
+        $jiri = $this->find($id);
+
+        if (! $jiri) {
+            Response::abort();
+        }
+
+        return $jiri;
+    }
+
     public function find(string $id): bool|\stdClass
     {
         $sql = <<<SQL
@@ -67,18 +80,8 @@ class Database extends PDO
         SQL;
         $statement = $this->prepare($sql);
         $statement->execute(['id' => $id]);
+
         return $statement->fetch();
-    }
-
-    public function findOrFail(string $id): ?\stdClass
-    {
-        $jiri = $this->find($id);
-
-        if (!$jiri) {
-            Response::abort();
-        }
-
-        return $jiri;
     }
 
     public function delete(string $id): bool
@@ -87,6 +90,7 @@ class Database extends PDO
                 DELETE FROM $this->table 
                          WHERE id = :id  
         SQL;
+
         return $this->prepare($sql)->execute(['id' => $id]);
     }
 

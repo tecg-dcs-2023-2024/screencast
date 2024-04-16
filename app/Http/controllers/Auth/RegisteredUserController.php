@@ -17,16 +17,12 @@ class RegisteredUserController
         try {
             $this->user = new User(base_path('.env.local.ini'));
         } catch (FileNotFoundException $exception) {
-            die($exception->getMessage());
+            exit($exception->getMessage());
         }
     }
 
-    public function create(): void
-    {
-        view('auth.register.create');
-    }
-
-    #[NoReturn] public function store(): void
+    #[NoReturn]
+    public function store(): void
     {
         $data = Validator::check([
             'email' => 'required|email|doesntexists:user,email',
@@ -40,5 +36,10 @@ class RegisteredUserController
         } else {
             Response::abort(Response::SERVER_ERROR);
         }
+    }
+
+    public function create(): void
+    {
+        view('auth.register.create');
     }
 }
