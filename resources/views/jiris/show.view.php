@@ -1,6 +1,5 @@
 <?php
 /** @var stdClass $jiri */
-
 ?>
 <!doctype html>
 <html lang="fr">
@@ -28,12 +27,12 @@
                     <div>
                         <dt class="font-bold">Date et heure de début</dt>
                         <dd><?= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $jiri->starting_at)
-                                ->locale('fr')
-                                ->diffForHumans() ?>
+    ->locale('fr')
+    ->diffForHumans() ?>
                         </dd>
                         <dd><?= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $jiri->starting_at)
-                                ->locale('fr')
-                                ->toDateTimeString() ?>
+    ->locale('fr')
+    ->toDateTimeString() ?>
                         </dd>
                     </div>
                 </dl>
