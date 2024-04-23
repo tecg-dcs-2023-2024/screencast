@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jiri;
+use Core\Auth;
 use Core\Concerns\Request\HasIdentifier;
 use Core\Exceptions\FileNotFoundException;
 use Core\Response;
 use Core\Validator;
 use JetBrains\PhpStorm\NoReturn;
+use stdClass;
 
 class JiriController
 {
@@ -29,31 +31,11 @@ class JiriController
     {
         $search = $_GET['search'] ?? '';
 
-        $sql_upcoming_jiris = <<<SQL
-                SELECT * FROM jiris 
-                         WHERE name LIKE :search  
-                               AND starting_at > current_timestamp
-                SQL;
-        $statement_upcoming_jiris =
-            $this->jiri->prepare($sql_upcoming_jiris);
-        $statement_upcoming_jiris->bindValue(':search', "%{$search}%");
-        $statement_upcoming_jiris->execute();
-        $upcoming_jiris =
-            $statement_upcoming_jiris->fetchAll();
+        $upcoming_jiris = $this->jiri->upcomingBelongingTo(Auth::id(), 'user');
+        $past_jiris = $this->jiri->pastBelongingTo(Auth::id(), 'user');
 
-        $sql_passed_jiris = <<<SQL
-                SELECT * FROM jiris 
-                         WHERE name LIKE :search
-                             AND starting_at < current_timestamp
-                SQL;
-        $statement_passed_jiris =
-            $this->jiri->prepare($sql_passed_jiris);
-        $statement_passed_jiris->bindValue(':search', "%{$search}%");
-        $statement_passed_jiris->execute();
-        $passed_jiris =
-            $statement_passed_jiris->fetchAll();
 
-        view('jiris.index', compact('upcoming_jiris', 'passed_jiris'));
+        view('jiris.index', compact('upcoming_jiris', 'past_jiris'));
     }
 
     #[NoReturn]
@@ -63,6 +45,8 @@ class JiriController
             'name' => 'required|min:3|max:255',
             'starting_at' => 'required|datetime',
         ]);
+
+        $data['user_id'] = Auth::id();
 
         if ($this->jiri->create($data)) {
             Response::redirect('/jiris');
@@ -82,7 +66,20 @@ class JiriController
 
         $jiri = $this->jiri->findOrFail($id);
 
+        $this->check_ownership($jiri);
+
         view('jiris.show', compact('jiri'));
+    }
+
+    private function check_ownership(int|string|stdClass $jiri): void
+    {
+        if (is_numeric($jiri)) {
+            $jiri = $this->jiri->findOrFail($jiri);
+        }
+
+        if (Auth::id() !== $jiri?->user_id) {
+            Response::abort(Response::UNAUTHORIZED);
+        }
     }
 
     public function edit(): void
@@ -90,6 +87,8 @@ class JiriController
         $id = $this->checkValidId();
 
         $jiri = $this->jiri->findOrFail($id);
+
+        $this->check_ownership($jiri);
 
         view('jiris.edit', compact('jiri'));
     }
@@ -104,6 +103,8 @@ class JiriController
             'starting_at' => 'required|datetime',
         ]);
 
+        $this->check_ownership($id);
+
         $this->jiri->update($id, $data);
 
         Response::redirect('/jiri?id='.$id);
@@ -113,6 +114,8 @@ class JiriController
     public function destroy(): void
     {
         $id = $this->checkValidId();
+
+        $this->check_ownership($id);
 
         $this->jiri->delete($id);
 
