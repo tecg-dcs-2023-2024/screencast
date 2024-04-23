@@ -39,6 +39,21 @@ use Carbon\Carbon;
                         </dd>
                     </div>
                 </dl>
+                <?php
+                if (count($jiri->contacts)): ?>
+                    <section>
+                        <h2 class="font-bold">Les participants</h2>
+                        <ol>
+                            <?php
+                            foreach ($jiri->contacts as $contact): ?>
+                                <li><a href="/contact?id=<?= $contact->id ?>"><?= $contact->name ?>
+                                        - <?= $contact->email ?></a></li>
+                            <?php
+                            endforeach; ?>
+                        </ol>
+                    </section>
+                <?php
+                endif ?>
                 <div>
                     <a href="/jiri/edit?id=<?= $jiri->id ?>"
                        class="underline text-blue-500">modifier ce jiri</a>

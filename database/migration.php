@@ -43,7 +43,8 @@ $create_table_sql = <<<SQL
         starting_at timestamp  not null comment 'Indicates the moment the jiri should start',
         user_id     int unsigned not null,
         created_at  timestamp default CURRENT_TIMESTAMP null,
-        updated_at  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP
+        updated_at  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
+        foreign key(user_id) references users(id)
     );
 SQL;
 
@@ -61,9 +62,30 @@ $create_table_sql = <<<SQL
         email       varchar(255)  not null unique,
         user_id     int unsigned not null,
         created_at  timestamp default CURRENT_TIMESTAMP null,
-        updated_at  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP
+        updated_at  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
+        foreign key(user_id) references users(id)
     );
 SQL;
 
 $db->exec($create_table_sql);
 echo 'Contact table created'.PHP_EOL;
+
+/**/
+
+echo 'Creating Attendance table'.PHP_EOL;
+$create_table_sql = <<<SQL
+    create table attendances
+    (
+        id          int unsigned auto_increment primary key,
+        contact_id  int unsigned not null,
+        jiri_id     int unsigned not null,
+        role        varchar(255),
+        created_at  timestamp default CURRENT_TIMESTAMP null,
+        updated_at  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
+        foreign key(contact_id) references contacts(id),
+        foreign key(jiri_id) references jiris(id)
+    );
+SQL;
+
+$db->exec($create_table_sql);
+echo 'Attendance table created'.PHP_EOL;
