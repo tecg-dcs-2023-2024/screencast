@@ -68,6 +68,9 @@ class JiriController
 
         $this->check_ownership($jiri);
 
+        /** @noinspection NullPointerExceptionInspection */
+        $jiri->contacts = $this->jiri->fetchContacts($jiri?->id);
+
         view('jiris.show', compact('jiri'));
     }
 
