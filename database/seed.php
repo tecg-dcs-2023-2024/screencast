@@ -40,4 +40,27 @@ foreach ($jiris as $jiri) {
 $count_jiris = count($jiris);
 echo "Jiri table seeded with {$count_jiris} jiris".PHP_EOL;
 
+echo 'Seeding Contact table'.PHP_EOL;
+$contacts = [
+    ['name' => 'Shannon Klocko', 'email' => 'tonette.jenkins@hotmail.com', 'user_id' => '1'],
+    ['name' => 'Nedra Gleason', 'email' => 'sherley.bartell@yahoo.com', 'user_id' => '1'],
+    ['name' => 'Dr. Willis Bogan', 'email' => 'valentin.schowalter@yahoo.com', 'user_id' => '2'],
+    ['name' => 'Carolyn McCullough', 'email' => 'willy.hirthe@gmail.com', 'user_id' => '1'],
+    ['name' => 'Jeff Kemmer', 'email' => 'louie.jakubowski@yahoo.com', 'user_id' => '1'],
+    ['name' => 'Dr. Daniella Murphy', 'email' => 'joannie.ruecker@hotmail.com', 'user_id' => '2'],
+    ['name' => 'Hector Harvey', 'email' => 'buster.herzog@hotmail.com', 'user_id' => '2'],
+    ['name' => 'Lonnie Ullrich', 'email' => 'julio.gusikowski@gmail.com', 'user_id' => '1'],
+    ['name' => 'Lou Kilback', 'email' => 'wayne.bogan@gmail.com', 'user_id' => '2'],
+];
+$insert_contact_in_contacts_table_sql = 'INSERT INTO contacts (name, email, user_id) VALUES (:name, :email, :user_id)';
+$insert_contact_in_contacts_table_stmt = $db->prepare($insert_contact_in_contacts_table_sql);
+foreach ($contacts as $contact) {
+    $insert_contact_in_contacts_table_stmt->bindValue('name', $contact['name']);
+    $insert_contact_in_contacts_table_stmt->bindValue('email', $contact['email']);
+    $insert_contact_in_contacts_table_stmt->bindValue('user_id', $contact['user_id']);
+    $insert_contact_in_contacts_table_stmt->execute();
+}
+$count_contacts = count($contacts);
+echo "Contact table seeded with {$count_contacts} contacts".PHP_EOL;
+
 
