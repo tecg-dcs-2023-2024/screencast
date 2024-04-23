@@ -16,13 +16,13 @@
                 <?php
                 component('forms.logout.delete') ?>
             </li>
-        <?php
+            <?php
         } else { ?>
             <li><a class="underline text-blue-500"
                    href="/register">S’enregister</a></li>
             <li><a class="underline text-blue-500"
                    href="/login">S’identifier</a></li>
-        <?php
+            <?php
         } ?>
     </ul>
 </nav>

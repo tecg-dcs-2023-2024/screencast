@@ -29,7 +29,7 @@ class JiriController
     {
         $search = $_GET['search'] ?? '';
 
-        $sql_upcoming_jiris = <<<'SQL'
+        $sql_upcoming_jiris = <<<SQL
                 SELECT * FROM jiris 
                          WHERE name LIKE :search  
                                AND starting_at > current_timestamp
@@ -41,7 +41,7 @@ class JiriController
         $upcoming_jiris =
             $statement_upcoming_jiris->fetchAll();
 
-        $sql_passed_jiris = <<<'SQL'
+        $sql_passed_jiris = <<<SQL
                 SELECT * FROM jiris 
                          WHERE name LIKE :search
                              AND starting_at < current_timestamp

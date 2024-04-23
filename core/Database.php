@@ -5,6 +5,7 @@ namespace Core;
 use Core\Exceptions\FileNotFoundException;
 use PDO;
 use PDOException;
+use stdClass;
 
 class Database extends PDO
 {
@@ -61,18 +62,18 @@ class Database extends PDO
         }
     }
 
-    public function findOrFail(string $id): ?\stdClass
+    public function findOrFail(string $id): ?stdClass
     {
         $jiri = $this->find($id);
 
-        if (! $jiri) {
+        if (!$jiri) {
             Response::abort();
         }
 
         return $jiri;
     }
 
-    public function find(string $id): bool|\stdClass
+    public function find(string $id): bool|stdClass
     {
         $sql = <<<SQL
                 SELECT * FROM $this->table 
