@@ -1,7 +1,9 @@
 <?php
 /** @var array $upcoming_jiris */
 
-/** @var array $passed_jiris */
+/** @var array $jiris */
+
+/** @var array $past_jiris */
 ?>
 <!doctype html>
 <html lang="fr">
@@ -38,7 +40,7 @@
                     <?php
                     component('jiris.list', [
                         'title' => 'Jiris passés',
-                        'jiris' => $passed_jiris,
+                        'jiris' => $past_jiris,
                     ]) ?>
                 </section>
 

@@ -136,4 +136,17 @@ class Database extends PDO
 
         return $statement->execute();
     }
+
+    public function belongingTo(int $id, string $model_name): array
+    {
+        $foreign_key = "{$model_name}_id";
+        $sql = <<<SQL
+            SELECT * FROM $this->table
+                     WHERE $foreign_key = :id
+            SQL;
+        $statement = $this->prepare($sql);
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }
