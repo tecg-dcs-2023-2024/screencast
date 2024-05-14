@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
+use App\Models\Contact;
 use App\Models\Jiri;
 use Core\Auth;
 use Core\Concerns\Request\HasIdentifier;
@@ -14,6 +16,8 @@ use stdClass;
 class JiriController
 {
     private Jiri $jiri;
+    private Contact $contact;
+    private Attendance $attendance;
 
     use HasIdentifier;
 
@@ -21,6 +25,8 @@ class JiriController
     {
         try {
             $this->jiri = new Jiri(base_path('.env.local.ini'));
+            $this->contact = new Contact(base_path('.env.local.ini'));
+            $this->attendance = new Attendance(base_path('.env.local.ini'));
         } catch (FileNotFoundException $exception) {
             exit($exception->getMessage());
         }
@@ -47,9 +53,20 @@ class JiriController
         ]);
 
         $data['user_id'] = Auth::id();
-
-        if ($this->jiri->create($data)) {
-            Response::redirect('/jiris');
+        $filtered_data = array_filter(
+            $data,
+            fn($key) => $key !== 'contacts' && !str_starts_with($key, 'role-'),
+            ARRAY_FILTER_USE_KEY
+        );
+        if ($this->jiri->create($filtered_data)) {
+            $jiri_id = $this->jiri->lastInsertId();
+            if (isset($_REQUEST['contacts'])) {
+                foreach ($_REQUEST['contacts'] as $contact_id) {
+                    $role = $_REQUEST['role-'.$contact_id];
+                    $this->attendance->create(compact('jiri_id', 'contact_id', 'role'));
+                }
+            }
+            Response::redirect('/jiri?id='.$jiri_id);
         } else {
             Response::abort(Response::SERVER_ERROR);
         }
@@ -57,7 +74,9 @@ class JiriController
 
     public function create(): void
     {
-        view('jiris.create');
+        $contacts = $this->contact->belongingTo(Auth::id(), 'user');
+
+        view('jiris.create', compact('contacts'));
     }
 
     public function show(): void
@@ -69,7 +88,8 @@ class JiriController
         $this->check_ownership($jiri);
 
         /** @noinspection NullPointerExceptionInspection */
-        $jiri->contacts = $this->jiri->fetchContacts($jiri?->id);
+        $jiri->students = $this->jiri->fetchStudents($jiri?->id);
+        $jiri->evaluators = $this->jiri->fetchEvaluators($jiri?->id);
 
         view('jiris.show', compact('jiri'));
     }
