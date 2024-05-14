@@ -36,19 +36,39 @@ class Jiri extends Database
         return $statement->fetchAll();
     }
 
-    public function fetchContacts(string|int $id): false|array
+    public function fetchStudents(string|int $id): false|array
     {
+        return $this->fetchContacts($id, 'student');
+    }
+
+    public function fetchContacts(string|int $id, ?string $role = ''): false|array
+    {
+        $role_constraints = '';
+
+        if (in_array($role, ['student', 'evaluator'])) {
+            $role_constraints = 'AND role = :role';
+        }
+
         $sql = <<<SQL
             SELECT * FROM attendances
             LEFT JOIN jiri.contacts c on attendances.contact_id = c.id
             WHERE jiri_id = :id
+            $role_constraints
             ORDER BY c.name;
         SQL;
 
         $statement = $this->prepare($sql);
         $statement->bindValue(':id', $id);
+        if ($role_constraints) {
+            $statement->bindValue(':role', $role);
+        }
         $statement->execute();
         return $statement->fetchAll();
+    }
+
+    public function fetchEvaluators(string|int $id): false|array
+    {
+        return $this->fetchContacts($id, 'evaluator');
     }
 
 }

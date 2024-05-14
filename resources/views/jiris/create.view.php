@@ -17,7 +17,8 @@
             <main class="flex flex-col gap-4">
                 <h1 class="font-bold text-2xl">Jiris</h1>
                 <?php
-                component('forms.jiris.create'); ?>
+                /** @var array $contacts */
+                component('forms.jiris.create', compact('contacts')); ?>
             </main>
             <?php
             component('navigations.main'); ?>

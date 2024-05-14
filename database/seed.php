@@ -66,19 +66,20 @@ echo "Contact table seeded with {$count_contacts} contacts".PHP_EOL;
 
 echo 'Seeding Attendance table'.PHP_EOL;
 $attendances = [
-    ['contact_id' => '1', 'jiri_id' => '1'],
-    ['contact_id' => '2', 'jiri_id' => '1'],
-    ['contact_id' => '3', 'jiri_id' => '3'],
-    ['contact_id' => '6', 'jiri_id' => '3'],
-    ['contact_id' => '7', 'jiri_id' => '3'],
-    ['contact_id' => '4', 'jiri_id' => '5'],
-    ['contact_id' => '1', 'jiri_id' => '5'],
+    ['contact_id' => '1', 'jiri_id' => '1', 'role' => 'evaluator'],
+    ['contact_id' => '2', 'jiri_id' => '1', 'role' => 'student'],
+    ['contact_id' => '3', 'jiri_id' => '3', 'role' => 'evaluator'],
+    ['contact_id' => '6', 'jiri_id' => '3', 'role' => 'evaluator'],
+    ['contact_id' => '7', 'jiri_id' => '3', 'role' => 'student'],
+    ['contact_id' => '4', 'jiri_id' => '5', 'role' => 'evaluator'],
+    ['contact_id' => '1', 'jiri_id' => '5', 'role' => 'evaluator'],
 ];
-$insert_attendance_in_attendances_table_sql = 'INSERT INTO attendances (contact_id, jiri_id) VALUES (:contact_id, :jiri_id)';
+$insert_attendance_in_attendances_table_sql = 'INSERT INTO attendances (contact_id, jiri_id, role) VALUES (:contact_id, :jiri_id, :role)';
 $insert_attendance_in_attendances_table_stmt = $db->prepare($insert_attendance_in_attendances_table_sql);
 foreach ($attendances as $attendance) {
     $insert_attendance_in_attendances_table_stmt->bindValue('contact_id', $attendance['contact_id']);
     $insert_attendance_in_attendances_table_stmt->bindValue('jiri_id', $attendance['jiri_id']);
+    $insert_attendance_in_attendances_table_stmt->bindValue('role', $attendance['role   ']);
     $insert_attendance_in_attendances_table_stmt->execute();
 }
 $count_attendances = count($attendances);
