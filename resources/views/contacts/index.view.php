@@ -14,31 +14,27 @@
         <link rel="stylesheet"
               href="<?= public_path('css/app.css') ?>">
     </head>
-    <body>
-        <a class="sr-only"
-           href="#main-menu">Aller au menu principal</a>
-        <div class="container mx-auto flex flex-col-reverse gap-6">
-            <main class="flex flex-col gap-4">
-                <h1 class="font-bold text-2xl">Contacts</h1>
-                <?php
-                component('forms.search', ['label' => 'Nom du contact']); ?>
+    <?php
+    partials('common_html_start');
+    ?>
+    <h1 class="font-bold text-2xl">Contacts</h1>
+    <?php
+    component('forms.search', ['label' => 'Nom du contact']); ?>
 
-                <section>
-                    <h2 class="font-bold">Mes contacts</h2>
-                    <?php
-                    component('contacts.list', [
-                        'title' => 'Mes Contacts',
-                        'contacts' => $contacts,
-                    ]) ?>
-                </section>
+    <section>
+        <h2 class="font-bold">Mes contacts</h2>
+        <?php
+        component('contacts.list', [
+            'title' => 'Mes Contacts',
+            'contacts' => $contacts,
+        ]) ?>
+    </section>
 
-                <div>
-                    <a href="/contact/create"
-                       class="underline text-blue-500">Créer un nouveau contact</a>
-                </div>
-            </main>
-            <?php
-            component('navigations.main'); ?>
-        </div>
-    </body>
+    <div>
+        <a href="/contact/create"
+           class="underline text-blue-500">Créer un nouveau contact</a>
+    </div>
+    <?php
+    partials('common_html_end');
+    ?>
 </html>
