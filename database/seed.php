@@ -79,7 +79,7 @@ $insert_attendance_in_attendances_table_stmt = $db->prepare($insert_attendance_i
 foreach ($attendances as $attendance) {
     $insert_attendance_in_attendances_table_stmt->bindValue('contact_id', $attendance['contact_id']);
     $insert_attendance_in_attendances_table_stmt->bindValue('jiri_id', $attendance['jiri_id']);
-    $insert_attendance_in_attendances_table_stmt->bindValue('role', $attendance['role   ']);
+    $insert_attendance_in_attendances_table_stmt->bindValue('role', $attendance['role']);
     $insert_attendance_in_attendances_table_stmt->execute();
 }
 $count_attendances = count($attendances);
