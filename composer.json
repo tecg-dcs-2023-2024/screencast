@@ -7,6 +7,9 @@
     "ext-ctype": "*",
     "nesbot/carbon": "^3.1"
   },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
   "autoload": {
     "psr-4": {
       "Core\\": "core/",
@@ -18,8 +21,5 @@
       "name": "Dominique Vilain",
       "email": "dominiquevilain@users.noreply.github.com"
     }
-  ],
-  "require-dev": {
-    "laravel/pint": "^1.15"
-  }
+  ]
 }
