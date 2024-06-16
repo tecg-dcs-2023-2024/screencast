@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\controllers;
 
 use App\Models\Attendance;
 use App\Models\Contact;
@@ -89,6 +89,7 @@ class JiriController
 
         /** @noinspection NullPointerExceptionInspection */
         $jiri->students = $this->jiri->fetchStudents($jiri?->id);
+        /** @noinspection NullPointerExceptionInspection */
         $jiri->evaluators = $this->jiri->fetchEvaluators($jiri?->id);
 
         view('jiris.show', compact('jiri'));

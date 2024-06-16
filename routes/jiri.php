@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\JiriController;
+use App\Http\controllers\JiriController;
 
 /** @var Core\Router $router */
 $router->get('/jiris', [JiriController::class, 'index'])->only('auth');

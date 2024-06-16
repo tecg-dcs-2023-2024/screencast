@@ -2,8 +2,8 @@
 
 /** @var Core\Router $router */
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\controllers\Auth\AuthenticatedSessionController;
+use App\Http\controllers\Auth\RegisteredUserController;
 
 $router->get('/register', [RegisteredUserController::class, 'create'])->only('guest');
 

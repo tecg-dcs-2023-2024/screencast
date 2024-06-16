@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ContactController;
+use App\Http\controllers\ContactController;
 
 /** @var Core\Router $router */
 $router->get('/contacts', [ContactController::class, 'index'])->only('auth');

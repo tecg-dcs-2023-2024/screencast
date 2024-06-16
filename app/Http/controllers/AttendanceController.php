@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\controllers;
 
 use App\Models\Attendance;
 use Core\Exceptions\FileNotFoundException;

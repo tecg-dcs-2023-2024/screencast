@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PagesController;
+use App\Http\controllers\PagesController;
 
 /** @var Core\Router $router */
 $router->get('/', [PagesController::class, 'home'])->only('guest');

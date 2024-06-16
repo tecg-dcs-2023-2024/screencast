@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\controllers\Auth;
 
 use App\Models\User;
 use Core\Exceptions\FileNotFoundException;

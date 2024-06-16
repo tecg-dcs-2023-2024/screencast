@@ -2,7 +2,7 @@
 
 /** @var Core\Router $router */
 
-use App\Http\Controllers\AttendanceController;
+use App\Http\controllers\AttendanceController;
 
 /*$router->get('/attendances', [AttendanceController::class, 'index'])->only('auth');
 
