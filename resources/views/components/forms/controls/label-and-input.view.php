@@ -12,8 +12,12 @@ $type = $type ?? 'text';
 $value = $value ?? '';
 $placeholder = $placeholder ?? '';
 ?>
-<label for="<?= $name ?>"
-       class="font-bold"><?= $label ?></label>
+<?php
+if (!in_array($type, ['checkbox', 'radio'])) : ?>
+    <label for="<?= $name ?>"
+           class="font-bold"><?= $label ?></label>
+<?php
+endif; ?>
 <input id="<?= $name ?>"
        type="<?= $type ?>"
        value="<?= $_SESSION['old'][$name] ?? $value ?>"
@@ -23,6 +27,12 @@ $placeholder = $placeholder ?? '';
        autocorrect="off"
        spellcheck="false"
        class="border border-grey-700 focus:invalid:border-pink-500 invalid:text-pink-600 rounded-md p-2">
+<?php
+if (in_array($type, ['checkbox', 'radio'])) : ?>
+    <label for="<?= $name ?>"
+           class="font-bold"><?= $label ?></label>
+<?php
+endif; ?>
 <?php
 if (isset($_SESSION['errors'][$name])) { ?>
     <p class="text-red-500"><?= $_SESSION['errors'][$name] ?></p>

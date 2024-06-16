@@ -29,6 +29,14 @@
     </div>
     <div>
         <?php
+        component('forms.controls.label-and-input', [
+            'name' => 'remember',
+            'label' => 'Se souvenir de moi pendant 15 jours',
+            'type' => 'checkbox',
+        ]); ?>
+    </div>
+    <div>
+        <?php
         component('forms.controls.button', ['text' => 'S’identifier']) ?>
     </div>
     <?php

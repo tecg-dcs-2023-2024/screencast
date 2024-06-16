@@ -21,9 +21,10 @@ $create_table_sql = <<<SQL
     create table users
     (
         id          int unsigned auto_increment primary key,
-        name        varchar(255),
+        name        varchar(255) null,
         email       varchar(255) not null unique,
         password    varchar(255) not null,
+        remember_token varchar(100) null,
         created_at  timestamp default CURRENT_TIMESTAMP null,
         updated_at  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP
     );

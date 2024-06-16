@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Core\Response;
 use Core\Router;
 
@@ -8,6 +9,14 @@ require BASE_PATH.'/core/helpers/functions.php';
 require base_path('vendor/autoload.php');
 
 session_start();
+
+if (isset($_COOKIE['remember_token']) && !isset($_SESSION['user'])) {
+    $user = new User(base_path('.env.local.ini'));
+    $user_data = $user->findByEmail($_COOKIE['email']);
+    if ($user_data->remember_token === $_COOKIE['remember_token']) {
+        $_SESSION['user'] = $user_data;
+    }
+}
 
 $router = new Router();
 require base_path('routes/web.php');
