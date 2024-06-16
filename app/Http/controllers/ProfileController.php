@@ -43,16 +43,18 @@ class ProfileController
 
         if (!empty($_POST['password'])) {
             $rules['password'] = 'password';
+            $rules['old-password'] = 'required|password_match';
         }
 
         $data = Validator::check($rules);
 
         $data = array_filter($data, fn($key) => array_key_exists($key, $rules), ARRAY_FILTER_USE_KEY);
 
-        if ($data['password']) {
+        if (isset($data['password'])) {
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            unset($data['old-password']);
         }
-
+        
         $this->user->update(Auth::id(), $data);
 
         $_SESSION['user'] = $this->user->find(Auth::id());
