@@ -14,7 +14,7 @@
             <li><a class="underline text-white uppercase tracking-wider"
                    href="/projects">Projets</a></li>
             <li class="flex-grow text-right"><a class="underline text-white uppercase tracking-wider"
-                                                href="/profile">Profil</a></li>
+                                                href="/profile/edit">Profil</a></li>
             <li class="mt-4 sm:mt-auto sm:ml-auto">
                 <?php
                 component('forms.logout.delete') ?>

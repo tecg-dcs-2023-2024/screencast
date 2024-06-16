@@ -7,8 +7,8 @@ use JetBrains\PhpStorm\NoReturn;
 class ProfileController
 {
     #[NoReturn]
-    public function show(): void
+    public function edit(): void
     {
-        view('profile.show');
+        view('profile.edit');
     }
 }
