@@ -82,8 +82,8 @@ $create_table_sql = <<<SQL
         role        varchar(255),
         created_at  timestamp default CURRENT_TIMESTAMP null,
         updated_at  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
-        foreign key(contact_id) references contacts(id),
-        foreign key(jiri_id) references jiris(id)
+        foreign key(contact_id) references contacts(id) on delete cascade,
+        foreign key(jiri_id) references jiris(id) on delete cascade
     );
 SQL;
 
