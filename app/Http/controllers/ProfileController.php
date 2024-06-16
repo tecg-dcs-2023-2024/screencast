@@ -30,6 +30,7 @@ class ProfileController
         view('profile.edit', compact('user'));
     }
 
+    #[NoReturn]
     public function update(): void
     {
         $rules = [
@@ -40,7 +41,17 @@ class ProfileController
             $rules['email'] = 'required|email|doesntexists:user,email';
         }
 
+        if (!empty($_POST['password'])) {
+            $rules['password'] = 'password';
+        }
+
         $data = Validator::check($rules);
+
+        $data = array_filter($data, fn($key) => array_key_exists($key, $rules), ARRAY_FILTER_USE_KEY);
+
+        if ($data['password']) {
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
 
         $this->user->update(Auth::id(), $data);
 
