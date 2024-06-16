@@ -1,3 +1,7 @@
+<?php
+/** @var stdClass $user */
+
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -6,17 +10,18 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible"
               content="ie=edge">
-        <title>Jiris - Votre profil</title>
+        <title>Jiris - Modifier votre profil</title>
         <link rel="stylesheet"
               href="<?= public_path('css/app.css') ?>">
     </head>
     <?php
     partials('common_html_start');
     ?>
-    <div class="mb-4">
-        <h1 class="font-bold text-2xl mb-4">Votre profil</h1>
-        <p>Pour la mission 2, il suffisait d'afficher la page. On s'arr&ecirc;te donc ici.</p>
-    </div>
+    <h1 class="font-bold text-2xl">Modifier votre profil</h1>
     <?php
-    partials('common_html_end'); ?>
+    component('forms.profile.update', compact('user'));
+    ?>
+    <?php
+    partials('common_html_end');
+    ?>
 </html>
