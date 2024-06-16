@@ -13,6 +13,8 @@
                    href="/contacts">Contacts</a></li>
             <li><a class="underline text-white uppercase tracking-wider"
                    href="/projects">Projets</a></li>
+            <li class="flex-grow text-right"><a class="underline text-white uppercase tracking-wider"
+                                                href="/profile">Profil</a></li>
             <li class="mt-4 sm:mt-auto sm:ml-auto">
                 <?php
                 component('forms.logout.delete') ?>
@@ -20,9 +22,9 @@
         <?php
         else : ?>
             <li><a class="underline text-white uppercase tracking-wider"
-                   href="/register">S’enregister</a></li>
+                   href="/register">S&rsquo;enregister</a></li>
             <li><a class="underline text-white uppercase tracking-wider"
-                   href="/login">S’identifier</a></li>
+                   href="/login">S&rsquo;identifier</a></li>
         <?php
         endif ?>
     </ul>
