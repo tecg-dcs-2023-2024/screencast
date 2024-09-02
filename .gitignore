@@ -110,3 +110,4 @@ fabric.properties
 
 /vendor/
 /node_modules/
+.idea/.name
