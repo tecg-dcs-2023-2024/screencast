@@ -6,12 +6,14 @@
     <select name="language"
             class="p-2 rounded bg-white"
             id="lang">
-        <option class=""
-                value="en"<?= $current_language === 'en' ? ' selected' : '' ?>>English
-        </option>
-        <option class=""
-                value="fr"<?= $current_language === 'fr' ? ' selected' : '' ?>>Français
-        </option>
+        <?php
+        foreach (AVAILABLE_LANGUAGES as $code => $language) : ?>
+            <option class=""
+                    value="<?= $code ?>"<?= $current_language === $code ? ' selected' : '' ?>><?= $language ?>
+            </option>
+        <?php
+        endforeach;
+        ?>
     </select>
     <label for="lang"
            aria-hidden="true"

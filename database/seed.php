@@ -4,15 +4,30 @@
 echo 'Seeding User table'.PHP_EOL;
 
 $password = password_hash('ch4nge_th1s', PASSWORD_DEFAULT);
+$languages = ['fr', 'en'];
 $users = [
-    ['email' => 'dominique.vilain@hepl.be', 'password' => $password],
-    ['email' => 'daniel.schreurs@hepl.be', 'password' => $password],
+    [
+        'email' => 'dominique.vilain@hepl.be',
+        'password' => $password,
+        'preferences' => json_encode(['language' => $languages[random_int(0, 1)]]),
+    ],
+    [
+        'email' => 'daniel.schreurs@hepl.be',
+        'password' => $password,
+        'preferences' => json_encode(['language' => $languages[random_int(0, 1)]]),
+    ],
+    [
+        'email' => 'myriam.dupont@hepl.be',
+        'password' => $password,
+        'preferences' => json_encode(['language' => $languages[random_int(0, 1)]]),
+    ],
 ];
-$insert_user_in_users_table_sql = 'INSERT INTO users (email, password) VALUES (:email, :password)';
+$insert_user_in_users_table_sql = 'INSERT INTO users (email, password, preferences) VALUES (:email, :password, :preferences)';
 $insert_user_in_users_table_stmt = $db->prepare($insert_user_in_users_table_sql);
 foreach ($users as $user) {
     $insert_user_in_users_table_stmt->bindValue('email', $user['email']);
     $insert_user_in_users_table_stmt->bindValue('password', $user['password']);
+    $insert_user_in_users_table_stmt->bindValue('preferences', $user['preferences']);
     $insert_user_in_users_table_stmt->execute();
 }
 $count_users = count($users);

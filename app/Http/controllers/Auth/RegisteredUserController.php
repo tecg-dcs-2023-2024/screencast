@@ -30,6 +30,7 @@ class RegisteredUserController
         ]);
 
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['preferences'] = json_encode(['language' => CURRENT_LANGUAGE]);
 
         if ($this->user->create($data)) {
             Response::redirect('/login');

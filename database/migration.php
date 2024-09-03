@@ -25,6 +25,7 @@ $create_table_sql = <<<SQL
         email       varchar(255) not null unique,
         password    varchar(255) not null,
         remember_token varchar(100) null,
+        preferences text null comment 'User preferences',
         created_at  timestamp default CURRENT_TIMESTAMP null,
         updated_at  timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP
     );
