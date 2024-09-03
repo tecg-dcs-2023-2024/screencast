@@ -7,6 +7,7 @@ use Core\Router;
 const BASE_PATH = __DIR__.'/..';
 require BASE_PATH.'/core/helpers/functions.php';
 require base_path('vendor/autoload.php');
+require base_path('config/index.php');
 
 session_start();
 

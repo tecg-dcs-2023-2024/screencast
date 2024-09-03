@@ -13,6 +13,11 @@
                    href="/contacts">Contacts</a></li>
             <li><a class="underline text-white uppercase tracking-wider"
                    href="/projects">Projets</a></li>
+            <li>
+                <?php
+                $current_language = CURRENT_LANGUAGE;
+                component('forms.lang.choose', compact('current_language')) ?>
+            </li>
             <li class="flex-grow text-right"><a class="underline text-white uppercase tracking-wider"
                                                 href="/profile/edit">Profil</a></li>
             <li class="mt-4 sm:mt-auto sm:ml-auto">
