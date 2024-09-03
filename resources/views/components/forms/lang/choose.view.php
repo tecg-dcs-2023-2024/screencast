@@ -2,7 +2,12 @@
 /** @var string $current_language */
 
 ?>
-<form action="">
+<form action="/lang"
+      method="post">
+    <?php
+    method('patch') ?>
+    <?php
+    csrf_token() ?>
     <select name="language"
             class="p-2 rounded bg-white"
             id="lang">

@@ -6,7 +6,7 @@
 /** @var array $past_jiris */
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="<?= CURRENT_LANGUAGE ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport"

@@ -208,4 +208,15 @@ class Validator
         return true;
     }
 
+    private static function lang(string $key): bool
+    {
+        if (!array_key_exists($_REQUEST[$key], AVAILABLE_LANGUAGES)) {
+            $_SESSION['errors'][$key] = 'La langue choisie n’est pas disponible';
+
+            return false;
+        }
+
+        return true;
+    }
+
 }

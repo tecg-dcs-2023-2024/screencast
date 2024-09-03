@@ -43,7 +43,7 @@ class Auth
     {
         return $_SESSION['user'];
     }
-    
+
     private static function generateRememberToken(): string
     {
         try {

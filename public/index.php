@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Core\Response;
 use Core\Router;
 
@@ -17,6 +16,13 @@ if (isset($_COOKIE['remember_token']) && !isset($_SESSION['user'])) {
     if ($user_data->remember_token === $_COOKIE['remember_token']) {
         $_SESSION['user'] = $user_data;
     }
+}
+
+if (Core\Auth::check()) {
+    $preferences_object = json_decode($_SESSION['user']->preferences, false);
+    define('CURRENT_LANGUAGE', $preferences_object->language);
+} else {
+    define('CURRENT_LANGUAGE', array_keys(AVAILABLE_LANGUAGES)[0]);
 }
 
 $router = new Router();
