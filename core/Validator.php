@@ -62,7 +62,7 @@ class Validator
     private static function email(string $key): bool
     {
         if (!filter_var($_REQUEST[$key], FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['errors'][$key] = 'La valeur fournie n’est pas une adresse email valide';
+            $_SESSION['errors'][$key] = trans('validation-email');
 
             return false;
         }
@@ -139,7 +139,7 @@ class Validator
     private static function required(string $key): bool
     {
         if (empty($_REQUEST[$key])) {
-            $_SESSION['errors'][$key] = "{$key} doit obligatoirement être fourni";
+            $_SESSION['errors'][$key] = "{$key} ".trans('validation-required');
 
             return false;
         }

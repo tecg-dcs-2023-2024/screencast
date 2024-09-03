@@ -56,3 +56,8 @@ function csrf_token()
 
 HTML;
 }
+
+function trans(string $key): string
+{
+    return MESSAGES[$key] ?? $key;
+}

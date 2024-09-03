@@ -25,6 +25,8 @@ if (Core\Auth::check()) {
     define('CURRENT_LANGUAGE', array_keys(AVAILABLE_LANGUAGES)[0]);
 }
 
+define('MESSAGES', require base_path('resources/lang/'.CURRENT_LANGUAGE.'.php'));
+
 $router = new Router();
 require base_path('routes/web.php');
 

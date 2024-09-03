@@ -18,7 +18,7 @@
     <?php
     partials('common_html_start');
     ?>
-    <h1 class="font-bold text-2xl">Créer un nouveau Jiri</h1>
+    <h1 class="font-bold text-2xl"><?= trans('form-title-create-new-jiri') ?></h1>
     <?php
     component('forms.jiris.create', compact('contacts')); ?>
     <?php
